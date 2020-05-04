@@ -87,7 +87,7 @@ tiff.imshow(im_rgb)
 
 
 
-- 이미지와 일치하도록 polygon scale 조정
+- 이미지와 grid의 비를 조정하기 위해 polygon scaler를 구하는 함수
 
 ```python
 def get_scalers():
@@ -100,6 +100,7 @@ x_scaler, y_scaler = get_scalers()
 
 train_polygons_scaled = shapely.affinity.scale(
     train_polygons, xfact=x_scaler, yfact=y_scaler, origin=(0, 0, 0))
+
 ```
 
 ` shapely.affinity.scale(geom, xfact=1.0, yfact=1.0, zfact=1.0, origin='center')`
@@ -120,6 +121,7 @@ def mask_for_polygons(polygons):
     return img_mask
 
 train_mask = mask_for_polygons(train_polygons_scaled)
+
 ```
 
 ` uint8`: 양수, $$ 2^8 $$개수 만큼 표현 가능, 0 ~ 255
@@ -139,6 +141,7 @@ def scale_percentile(matrix):
     matrix = np.reshape(matrix, [w, h, d])
     matrix = matrix.clip(0, 1)
     return matrix
+
 ```
 
 [np.percentile 설명]( https://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html )
@@ -147,6 +150,7 @@ def scale_percentile(matrix):
 
 ```python
 tiff.imshow(255 * scale_percentile(im_rgb[2900:3200,2000:2300]));
+
 ```
 
 <img src="https://user-images.githubusercontent.com/61573968/80913903-14f42c00-8d83-11ea-9c99-d2d61727629b.png" alt="image" style="zoom:67%;" />
@@ -156,6 +160,7 @@ def show_mask(m):
     # hack for nice display
     tiff.imshow(255 * np.stack([m, m, m]));
 show_mask(train_mask[2900:3200,2000:2300])
+
 ```
 
 <img src="https://user-images.githubusercontent.com/61573968/80913942-44a33400-8d83-11ea-8ea8-7251932a6d39.png" alt="image" style="zoom:67%;" />
