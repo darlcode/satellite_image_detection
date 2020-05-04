@@ -14,7 +14,7 @@ Dstl은 3 밴드 및 16 밴드 형식의 1km x 1km 위성 이미지
 
 ![image](https://user-images.githubusercontent.com/61573968/80793938-7bd2e300-8bd3-11ea-93cf-e2d8a5a18cc8.png)
 
-이미지 ID, x의 max, y의 min의 순서임(0.0은 왼쪽 상단인 것 같음)
+이미지 ID, x의 max, y의 min의 순서
 
 
 
